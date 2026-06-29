@@ -1,0 +1,39 @@
+{
+  "id": "ewing-biomarker-evidence-cards-dataset-014",
+  "title": "Release the machine-readable dataset (open license) + accessible static site (WCAG 2.2 AA)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "code",
+  "lane": "donated",
+  "priority": "medium",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "accessibility",
+    "dataset-release"
+  ],
+  "riskTier": "low",
+  "urgent": false,
+  "deliverable": "dataset",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "The release packages the validated cards as an open machine-readable dataset and an accessible static site (WCAG 2.2 AA) with no trackers, exposing each card's correct license and the research-reference framing on every page. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Release the machine-readable card dataset (open license) and an accessible static site that validates against the schema, exposes each card's correct cardLicense, keeps restricted content out of card bodies, meets WCAG 2.2 AA with no trackers, and shows the framing on every page.",
+  "acceptanceCriteria": [
+    "Dataset validates against the schema; each card's cardLicense is correct and exposed; restricted content absent from bodies",
+    "Site meets WCAG 2.2 AA, no trackers, framing visible on every page"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "dist/dataset/ewing-biomarker-cards.json plus site/ (static, WCAG 2.2 AA)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}

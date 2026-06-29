@@ -1,0 +1,39 @@
+{
+  "id": "ewing-biomarker-evidence-cards-audit-015",
+  "title": "Curation-QA audit pass on the research card set (faithfulness >= 95%)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "maintenance",
+  "lane": "donated",
+  "priority": "medium",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "quality-assurance",
+    "audit"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "small",
+  "status": "open",
+  "context": "An independent sampled curation-QA audit confirms the shipped research cards faithfully represent their sources (>= 95%) and that license, allowlist, and provenance coverage are complete, with any failures fixed or cards withheld. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Run an independent sampled curation-QA audit on the research card set confirming >= 95% faithfulness and 100% license + allowlist + provenance coverage, fixing or withholding failures and recording the results.",
+  "acceptanceCriteria": [
+    "Independent sampled audit confirms >= 95% faithfulness; license + allowlist + provenance coverage = 100%",
+    "Any failures fixed or cards withheld; results recorded (domain + compliance reviewers; TO BE SECURED)"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "review/curation-qa-audit.md",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ewing-biomarker-evidence-cards-pilot-017",
+  "title": "Secure adopting partner/steward + independent verification of license/provenance/grading/review gates",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "research",
+  "lane": "donated",
+  "priority": "medium",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "adoption",
+    "partnerships"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "This is the deed: secure a real beneficiary (research group / advocacy nonprofit / curation community) as an adopter, assign a steward, flip verifiedNeed to true, and obtain independent verification that all licensing/provenance/grading/review gates hold. Driven by a dated partner-acquisition plan, with a build-vs-mothball/pivot rule if no adopter is secured by ~2027-03-31. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Secure an adopting partner/steward and obtain independent verification that provenance coverage is 100%, license-composition correct (no restricted content in bodies), evidence grading present + framework-named, and all research cards domain-signed-off (patient cards dual-signed-off), applying the build-vs-mothball/pivot rule if no adopter is secured by ~2027-03-31.",
+  "acceptanceCriteria": [
+    "A real beneficiary (research group / advocacy nonprofit / curation community) is secured as an adopter; steward assigned; verifiedNeed flips to true",
+    "Independent verification that: provenance coverage = 100%, license-composition correct (no restricted content in bodies), evidence grading present + framework-named, all research cards domain-signed-off (and any shipped patient cards dual-signed-off)",
+    "Driven by the dated partner-acquisition plan; if no adopter is secured by ~2027-03-31, apply the build-vs-mothball/pivot rule (donate cards + schema to an open curation commons, or mothball to maintenance-only) - recorded in governance"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "docs/adoption-and-verification.md (partner-acquisition plan + independent verification record)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}

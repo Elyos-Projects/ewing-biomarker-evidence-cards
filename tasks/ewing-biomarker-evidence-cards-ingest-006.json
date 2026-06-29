@@ -1,0 +1,39 @@
+{
+  "id": "ewing-biomarker-evidence-cards-ingest-006",
+  "title": "Ingestion connectors for allowlisted open sources (PMC-OA, CIViC, Open Targets, ClinVar, DepMap, open GEO/cBioPortal)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "bioinformatics",
+    "data-ingestion"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "status": "open",
+  "context": "Ingestion connectors pull candidate evidence only from allowlisted open sources, recording full provenance per item. LLM-assisted extraction is assistive only and never emits an assertion without a resolvable citation. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Build ingestion connectors for the allowlisted open sources (PMC-OA, CIViC, Open Targets, ClinVar, DepMap, open GEO/cBioPortal) that record full provenance per item, capture per-article PMC-OA license, never ingest COSMIC/OncoKB (cite-only), and work on fixtures.",
+  "acceptanceCriteria": [
+    "Pulls candidate evidence only from allowlisted sources; records full provenance per item; per-article PMC-OA license captured; COSMIC/OncoKB not ingested (cite-only references)",
+    "LLM-assisted extraction is assistive; no assertion is emitted without a resolvable citation; works on fixtures"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "packages/ingest/ (connectors + fixtures)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "ewing-biomarker-evidence-cards-kg-022",
+  "title": "Link cards to ewsr1-fli1-knowledge-graph entities",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "code",
+  "lane": "donated",
+  "priority": "low",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "knowledge-graph",
+    "interoperability"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "Backlog/future: interoperate the cards with the ewsr1-fli1-knowledge-graph project via normalized HGNC/SO/Mondo references. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Link cards to ewsr1-fli1-knowledge-graph entities via normalized HGNC/SO/Mondo references, producing a mapping that interoperates without copying restricted content.",
+  "acceptanceCriteria": [
+    "Cards linked to ewsr1-fli1-knowledge-graph entities via normalized HGNC/SO/Mondo references",
+    "Interop mapping carries provenance and copies no restricted-source content; validated on fixtures"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "packages/interop/kg-links.json (card <-> KG entity mapping)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

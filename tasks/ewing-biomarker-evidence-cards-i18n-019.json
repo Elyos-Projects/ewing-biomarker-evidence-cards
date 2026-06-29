@@ -1,0 +1,42 @@
+{
+  "id": "ewing-biomarker-evidence-cards-i18n-019",
+  "title": "Multilingual patient-facing cards",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "writing",
+  "lane": "donated",
+  "priority": "low",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "patient-education",
+    "translation",
+    "i18n"
+  ],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "translation",
+  "tokenEstimate": "large",
+  "status": "open",
+  "context": "Backlog/future: multilingual renditions of the patient-facing plain-language cards. HIGH risk-tier and education-only (not medical advice); coordinate with / defer to the ewing-info-translations project, with per-language oncologist + patient-advocate review. Languages are NOT yet enumerated and depend on a secured partner/community, so this is one representative task that expands per-language on scope confirmation - no languages are fabricated. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Produce multilingual patient-facing card renditions (representative task; languages expand on partner/scope confirmation), each translated faithfully from its published parent plain-language card, carrying the not-medical-advice frame, with per-language oncologist + patient-advocate sign-off, coordinated with ewing-info-translations to avoid duplication.",
+  "acceptanceCriteria": [
+    "Each translated card is faithful to its published parent plain-language card and carries the persistent 'research information, not medical advice' frame in the target language",
+    "Per-language oncologist + patient-advocate sign-off recorded; cards withheld if either sign-off is missing or stale (reviewers TO BE SECURED)",
+    "Coordinated with / deferred to ewing-info-translations to avoid duplication; target languages enumerated only once a partner/community confirms scope (no languages fabricated)",
+    "Translation output license is source-compatible with the parent CC-BY-4.0 cards (no relicensing of copyrighted source content)"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "cards/patient/i18n/<lang>/*.md (representative; per-language on scope confirmation)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "ewing-biomarker-evidence-cards-immuno-020",
+  "title": "Immunotherapy surface-antigen target cards",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "writing",
+  "lane": "donated",
+  "priority": "low",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "immunotherapy",
+    "surface-antigens"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "Backlog/future: immunotherapy surface-antigen target cards. MEDIUM risk-tier research reference; coordinate with the ewing-immunotherapy-target-catalog project to avoid duplication. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Draft immunotherapy surface-antigen target cards as research references (cited + graded, no individual clinical instruction), coordinating with ewing-immunotherapy-target-catalog to avoid duplication, with domain-reviewer sign-off recorded.",
+  "acceptanceCriteria": [
+    "Each surface-antigen target card is cited + provenance-backed and evidence-graded; carries the 'research reference - not clinical guidance' frame",
+    "No individual clinical instruction; coordinated with ewing-immunotherapy-target-catalog to avoid duplication",
+    "Domain-reviewer sign-off recorded (reviewer TO BE SECURED)"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "cards/immuno/*.json (immunotherapy surface-antigen target cards)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}
