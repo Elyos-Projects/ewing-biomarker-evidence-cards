@@ -1,0 +1,40 @@
+{
+  "id": "ewing-biomarker-evidence-cards-sources-002",
+  "title": "Source allowlist + license register (initial sources verified + dated; redistributionAllowed flags)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "data",
+  "lane": "donated",
+  "priority": "high",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "licensing",
+    "provenance"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "dataset",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "Source allowlist + license register for Ewing-Biomarker-Evidence-Cards, the M0 companion to the compliance policy spec (-compliance-001) and the second hard-gate build item. It is the single machine-readable record of which sources may be reused and how. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Build the source allowlist and license register: every approved source recorded with its access tier, license, redistributionAllowed flag, attribution requirement, and dated verification, such that ingestion tooling can pull only from allowlisted sources and an off-allowlist source in provenance fails the build.",
+  "acceptanceCriteria": [
+    "Each source recorded with: name, type, access tier (open/aggregate/de-identified only), license, redistributionAllowed, attribution requirement, verification date, verifier",
+    "dbGaP/EGA/biobanks/individual-level sources are absent by guardrail; COSMIC/OncoKB marked redistributionAllowed:false (cite-only); CIViC CC0, DepMap CC-BY-4.0, ClinVar/dbSNP public domain, PMC-OA per-article",
+    "Ingestion tooling can only pull from allowlisted sources; an allowlist test fails the build if an off-allowlist source appears in provenance"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "sources/allowlist.json plus sources/license-register.md (dated, per-source license records)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}

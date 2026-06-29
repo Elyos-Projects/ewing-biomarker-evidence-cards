@@ -278,6 +278,63 @@ cadence, reuse-based outcome tracking, and a gated expansion process.
 | ewing-biomarker-evidence-cards-kg-022 | Link cards to `ewsr1-fli1-knowledge-graph` entities | code | medium | medium | pr | Interop via normalized HGNC/SO/Mondo refs |
 | ewing-biomarker-evidence-cards-feedback-023 | Reviewer/advocate feedback + correction intake workflow | code | small | medium | pr | Corrections trigger re-review + re-sign-off |
 
+**Acceptance criteria — backlog rows.** The backlog rows above carry their checkable acceptance
+criteria in their generated `tasks/<id>.json` files (each preserves the row's guardrails: education-only
+/ not-medical-advice + dual oncologist+advocate sign-off for `-i18n-019`; coordination-to-avoid-
+duplication for `-immuno-020`/`-kg-022`; "only after M5, static, no-PII, open-data" for `-api-021`;
+corrections trigger re-review + re-sign-off for `-feedback-023`).
+
+---
+
+## Generated task index
+
+Every milestone/backlog row above is now decomposed into one schema-valid Elyos Task JSON under
+`tasks/` (validated against `packages/schema` taskSchema — all pass; filenames == ids; no duplicates;
+no extra keys). All tasks are `lane: donated`, `status: open`, `urgent: false`, `verifiedNeed: false`,
+`requestor: "TO BE SECURED"` (no partner/reviewer/steward secured).
+
+**Fan-out note (honest, bounded).** Several rows name a bounded biomarker set — fusion variants
+(EWSR1-FLI1/ERG/ETV1/ETV4/FEV, `-fusion-010`), immunomarkers (CD99/MIC2, NKX2-2, `-ihc-011`), and
+prognostic genes (STAG2/TP53/CDKN2A/copy-number, `-prognostic-012`). These are **kept as one coherent
+representative card task per row** rather than fanned out per biomarker, because every card-writing
+task is gated on a **TO-BE-SECURED domain reviewer** (and the patient layer on a TO-BE-SECURED
+oncologist + advocate); per the bounded-but-gated rule they expand into per-biomarker cards once a
+domain reviewer is secured. `-i18n-019` is similarly one representative task that expands per-language
+on partner/scope confirmation — **no languages, biomarkers, datasets, or beneficiaries are fabricated.**
+
+**Guardrails preserved.** The HIGH-risk patient/family layer (`-plainlang-016`) and multilingual layer
+(`-i18n-019`) are authored as **education-only / not-medical-advice** tasks that require dual
+oncologist + patient-advocate sign-off and are withheld if either sign-off is missing or stale — no
+task asks for individualized medical advice, prognosis, eligibility, or treatment guidance. The
+open/aggregate/de-identified-only data rule, per-source license verification, cite-only restricted
+sources (COSMIC/OncoKB), and no-source-no-claim provenance are carried into every task `context`.
+
+| ID | Milestone | Type | Risk | Deliverable |
+|---|---|---|---|---|
+| ewing-biomarker-evidence-cards-compliance-001 | M0 | design-spec | medium | document |
+| ewing-biomarker-evidence-cards-sources-002 | M0 | data | medium | dataset |
+| ewing-biomarker-evidence-cards-schema-003 | M0 | code | low | pr |
+| ewing-biomarker-evidence-cards-grading-004 | M0 | design-spec | medium | document |
+| ewing-biomarker-evidence-cards-repo-005 | M0 | code | low | pr |
+| ewing-biomarker-evidence-cards-ingest-006 | M1 | code | medium | pr |
+| ewing-biomarker-evidence-cards-provenance-007 | M1 | code | medium | pr |
+| ewing-biomarker-evidence-cards-normalize-008 | M1 | code | low | pr |
+| ewing-biomarker-evidence-cards-qa-009 | M1 | code | medium | pr |
+| ewing-biomarker-evidence-cards-fusion-010 | M2 | writing | medium | document |
+| ewing-biomarker-evidence-cards-ihc-011 | M2 | writing | medium | document |
+| ewing-biomarker-evidence-cards-prognostic-012 | M3 | writing | medium | document |
+| ewing-biomarker-evidence-cards-circulating-013 | M3 | writing | medium | document |
+| ewing-biomarker-evidence-cards-dataset-014 | M3 | code | low | dataset |
+| ewing-biomarker-evidence-cards-audit-015 | M3 | maintenance | medium | document |
+| ewing-biomarker-evidence-cards-plainlang-016 | M4 | writing | high | document |
+| ewing-biomarker-evidence-cards-pilot-017 | M5 | research | medium | document |
+| ewing-biomarker-evidence-cards-ops-018 | M6 | maintenance | medium | document |
+| ewing-biomarker-evidence-cards-i18n-019 | Backlog | writing | high | translation |
+| ewing-biomarker-evidence-cards-immuno-020 | Backlog | writing | medium | document |
+| ewing-biomarker-evidence-cards-api-021 | Backlog | code | low | pr |
+| ewing-biomarker-evidence-cards-kg-022 | Backlog | code | medium | pr |
+| ewing-biomarker-evidence-cards-feedback-023 | Backlog | code | medium | pr |
+
 ---
 
 ## Example task JSON

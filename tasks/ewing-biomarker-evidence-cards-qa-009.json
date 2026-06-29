@@ -1,0 +1,37 @@
+{
+  "id": "ewing-biomarker-evidence-cards-qa-009",
+  "title": "Curation-QA / extraction-faithfulness audit harness",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "code",
+  "lane": "donated",
+  "priority": "medium",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "quality-assurance"
+  ],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "small",
+  "status": "open",
+  "context": "The curation-QA harness samples shipped assertions and checks each faithfully represents its cited source, reporting a faithfulness rate and routing failures to re-review. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Build the curation-QA / extraction-faithfulness audit harness that samples shipped assertions, checks each faithfully represents its cited source (no overstatement), reports a faithfulness rate, and routes failures to re-review.",
+  "acceptanceCriteria": [
+    "Samples shipped assertions and checks each faithfully represents its cited source (no overstatement); reports a faithfulness rate; target >= 95%, with failures routed to re-review"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "packages/qa/ (curation-QA harness + faithfulness report)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

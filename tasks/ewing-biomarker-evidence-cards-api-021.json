@@ -1,0 +1,39 @@
+{
+  "id": "ewing-biomarker-evidence-cards-api-021",
+  "title": "Read-only query API over the card dataset",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "code",
+  "lane": "donated",
+  "priority": "low",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "api",
+    "tooling"
+  ],
+  "riskTier": "low",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "Backlog/future (only after M5): a read-only query API over the open card dataset. Static, no PII, open data only. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Build a read-only query API over the open card dataset (static, no PII, open data only), available only after M5, that exposes cards with their licenses and framing and never serves restricted content.",
+  "acceptanceCriteria": [
+    "Read-only API serves the open card dataset (static, no PII, open data only); only built after M5",
+    "Exposes each card's cardLicense and framing; restricted-source content never served in card bodies"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "packages/api/ (read-only query API)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

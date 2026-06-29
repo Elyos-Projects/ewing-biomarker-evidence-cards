@@ -1,0 +1,42 @@
+{
+  "id": "ewing-biomarker-evidence-cards-plainlang-016",
+  "title": "Plain-language family renditions of published cards (education-only, not medical advice)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "writing",
+  "lane": "donated",
+  "priority": "low",
+  "domain": [
+    "cancer",
+    "oncology",
+    "ewing-sarcoma",
+    "biomarkers",
+    "open-data",
+    "patient-education",
+    "plain-language",
+    "accessibility"
+  ],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "large",
+  "status": "open",
+  "context": "The patient/family plain-language layer is HIGH risk-tier and dual-gated: each rendition is education only, never medical advice, sourced to its parent card's citations, and ships ONLY with both an oncologist and a patient-advocate sign-off. It carries the persistent 'this is research information, not medical advice - talk to your (or your child's) oncology team' frame, gives no individualized risk/prognosis/treatment guidance, and is withheld if either sign-off is missing or stale. Reviewers (oncologist + advocate) are TO BE SECURED; if not secured this layer does not ship and the research-only library stands as the deed. Binding cancer guardrails apply: only open-access / aggregate / de-identified sources (controlled-access - dbGaP, EGA, individual-level biobanks - and any identifiable patient data are out of scope); per-source license verified before reuse (COSMIC/OncoKB cite-only, CIViC CC0, DepMap CC-BY, ClinVar public domain, PMC-OA per-article); no-source-no-claim provenance on every assertion. No partner/reviewer/steward is yet secured, so this task carries requestor 'TO BE SECURED' and verifiedNeed false.",
+  "objective": "Draft one plain-language family rendition per published, domain-reviewed research card - education only, sourced to its parent card's citations, carrying the not-medical-advice frame, meeting the readability/tone and WCAG 2.2 AA standards, with no individualized guidance, and published only with dual oncologist + patient-advocate sign-off (withheld otherwise).",
+  "acceptanceCriteria": [
+    "One plain-language rendition per published, domain-reviewed research card; each is sourced to its parent card's citations and carries the persistent 'this is research information, not medical advice - talk to your (or your child's) oncology team' frame",
+    "Meets a readability + tone standard: no false hope (no cure/efficacy promises), no false despair, uncertainty shown plainly, no individualized risk/prognosis/treatment guidance",
+    "Both an oncologist and a patient advocate sign off every card (dual, version-scoped, recorded); COI disclosed/recused as needed (reviewers TO BE SECURED)",
+    "Accessibility (WCAG 2.2 AA) verified; cards withheld (not auto-published) if either sign-off is missing or stale"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "TASKS.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "cards/patient/*.md (plain-language family renditions)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}
