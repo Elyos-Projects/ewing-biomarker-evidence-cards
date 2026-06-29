@@ -1,6 +1,6 @@
 # Ewing-Biomarker-Evidence-Cards — TASKS.md
 
-> Status: Draft · Version: 0.1.0 · Last updated: 2026-06-28 · Owner: TBD (maintainer) · Lane: donated
+> Status: Draft · Version: 0.2.0 · Last updated: 2026-06-29 · Owner: TBD (maintainer) · Lane: donated
 
 Backlog for **Ewing-Biomarker-Evidence-Cards** (slug: `ewing-biomarker-evidence-cards`), an open,
 source-cited library of biomarker evidence cards for Ewing Sarcoma — a research-evidence reference
@@ -11,10 +11,17 @@ The **data/licensing & compliance policy + source allowlist/license register is 
 item** and a hard requirement. Binding cancer guardrails: **open / aggregate / de-identified data
 only** (controlled-access — dbGaP, EGA, individual-level biobanks — and any identifiable patient data
 are OUT OF SCOPE); **per-source license verification before reuse** (COSMIC/OncoKB non-commercial →
-cite-only; CIViC CC0; DepMap CC-BY; ClinVar PD; PMC-OA per-article); **provenance on every
-assertion**. This is a **MEDIUM** risk-tier project; the **patient/family-facing layer is HIGH** and
-needs **oncologist + patient-advocate** sign-off. No partner/reviewer/steward secured, so
-delivery-dependent tasks carry `requestor: TO BE SECURED` and `verifiedNeed: false`.
+cite-only, and **OncoKB additionally no-AI/ML-training** — never fed to the extraction model; CIViC
+CC0; DepMap CC-BY; ClinVar PD; PMC-OA per-article; **CC-BY-SA/ShareAlike modeled as a distinct license
+contaminant**); **provenance on every assertion** (span-grounded, verbatim-quote extraction).
+Evidence is graded on **two axes** (evidence-strength **by association type** — Simon–Hayes/TMUGS LOE
+for prognostic; AMP/ASCO/CAP + ESCAT only for predictive; REMARK as study appraisal — × a
+`validityDimension` analytic/clinical-validity/utility axis), with **`evidenceStatus`
+(emerging/established/contested/refuted-superseded) + `supersededBy[]`** making refuted markers
+(e.g., EWSR1-FLI1 fusion *type* as prognosis) first-class. This is a **MEDIUM** risk-tier project;
+the **patient/family-facing layer is HIGH** and needs **oncologist + patient-advocate** sign-off. No
+partner/reviewer/steward secured, so delivery-dependent tasks carry `requestor: TO BE SECURED` and
+`verifiedNeed: false`.
 
 ## How these tasks map to Elyos
 
@@ -68,7 +75,9 @@ credentialed clinical oncologist **and** patient advocate (HIGH-tier patient lay
     **controlled-access (dbGaP, EGA, individual-level biobanks) and any identifiable patient data are
     out of scope**; no re-identification or individual-level data.
   - Defines **per-source license verification before reuse** and the `redistributionAllowed`
-    cite-only rule for restricted sources (COSMIC, OncoKB).
+    cite-only rule for restricted sources (COSMIC, OncoKB); records **OncoKB's no-AI/ML-training
+    clause** (`aiTrainingAllowed:false` — its text is never used as input to the extraction model even
+    when cited) and models **CC-BY-SA/ShareAlike** as a distinct license contaminant alongside NC.
   - Defines the **no-source-no-claim** requirement and the per-assertion provenance fields
     (source, accession/PMID/PMCID/DOI, retrievalDate, license, redistributionAllowed).
   - Defines the **license-composition rule** (a card's effective `cardLicense` is the most restrictive
@@ -80,25 +89,38 @@ credentialed clinical oncologist **and** patient advocate (HIGH-tier patient lay
 
 - **ewing-biomarker-evidence-cards-sources-002** (allowlist + license register)
   - Each source recorded with: name, type, **access tier (open/aggregate/de-identified only)**,
-    license, `redistributionAllowed`, attribution requirement, verification date, verifier.
+    license, `redistributionAllowed`, **`aiTrainingAllowed`**, **`shareAlike`**, attribution
+    requirement, verification date, verifier.
   - dbGaP/EGA/biobanks/individual-level sources are **absent by guardrail**; COSMIC/OncoKB marked
-    `redistributionAllowed:false` (cite-only); CIViC `CC0`, DepMap `CC-BY-4.0`, ClinVar/dbSNP PD,
-    PMC-OA per-article.
+    `redistributionAllowed:false` (cite-only) and **OncoKB `aiTrainingAllowed:false`**; CIViC `CC0`,
+    DepMap `CC-BY-4.0`, ClinVar/dbSNP PD, PMC-OA per-article; **VICC metakb** added as a cross-KB
+    consensus check (standards-based, inherits source terms); PharmGKB documented as out-of-scope
+    (germline PGx, CC-BY-SA).
   - Ingestion tooling can **only** pull from allowlisted sources; an allowlist test fails the build if
     an off-allowlist source appears in provenance.
 
 - **ewing-biomarker-evidence-cards-schema-003** (card schema)
-  - JSON Schema covers identity (with HGNC/SO/HGVS/Mondo refs), biology, `clinicalAssociations[]`
-    (claim, associationType, direction, populationContext, evidenceLevel+framework+version,
-    citations[], provenance[], uncertaintyNote), governance (riskTier, reviewStatus, reviewers[],
-    lastVerified, validUntil, disclaimer, cardLicense).
-  - ajv validation runs in CI; an invalid card fails the build; `evidenceLevel` and ≥1 `citation` +
-    `provenance` are **required** on every clinical association.
+  - JSON Schema covers identity (with HGNC/SO/HGVS/Mondo refs, **GA4GH VRS + a structured
+    fusion-representation model** for fusions), biology, `clinicalAssociations[]` (claim,
+    associationType, direction, populationContext **incl. rare-cancer cohort caveats**,
+    evidenceLevel+framework+version **with framework chosen by association type**,
+    **`validityDimension` (analytic/clinical-validity/clinical-utility)**, **`evidenceStatus`
+    (emerging/established/contested/refuted-superseded)**, **`supersededBy[]`**, **`maturity`
+    (preclinical/translational/clinically-validated)**, citations[], provenance[], uncertaintyNote),
+    governance (riskTier, reviewStatus, reviewers[], lastVerified, validUntil, disclaimer, cardLicense).
+  - ajv validation runs in CI; an invalid card fails the build; `evidenceLevel`, `validityDimension`,
+    `evidenceStatus`, and ≥1 `citation` + `provenance` are **required** on every clinical association.
 
 - **ewing-biomarker-evidence-cards-grading-004** (grading framework)
-  - Chooses the framework(s) (proposal: CIViC levels cross-walked to AMP/ASCO/CAP + ESCAT) and records
-    the cross-walk; every assertion must store the framework name + version.
-  - Domain reviewer confirms the mapping is faithful to the published frameworks.
+  - Adopts the **two-axis model**: evidence-strength **by association type** — **Simon–Hayes/TMUGS LOE**
+    for prognostic, **AMP/ASCO/CAP + ESCAT** only for predictive/actionability (where any exists),
+    **CIViC** cross-walked where applicable — plus a **validity-type axis (ACCE: analytic /
+    clinical-validity / clinical-utility)**, with **REMARK** as a per-study appraisal checklist (not an
+    evidence grade). **No prognostic/diagnostic marker is graded on an actionability scale** (category
+    error; most Ewing markers are ESCAT Tier X). Records the cross-walk; every assertion stores the
+    framework name + version **for its association type**.
+  - Defines the **`evidenceStatus`/`supersededBy[]` refuted-marker policy** and a "how we grade" methods
+    card. Domain reviewer confirms the mapping is faithful to the published frameworks.
 
 **M0 Definition of Done:** compliance policy spec (compliance-reviewed) + source allowlist/license
 register merged; evidence-card JSON Schema + ajv validation green in CI; grading framework chosen +
@@ -111,28 +133,40 @@ into templates; **domain-reviewer recruitment started (dated)**.
 
 | ID | Title | Type | Size | Risk | Deliverable | Depends on | Reviewer |
 |---|---|---|---|---|---|---|---|
-| ewing-biomarker-evidence-cards-ingest-006 | Ingestion connectors for allowlisted open sources (PMC-OA, CIViC, Open Targets, ClinVar, DepMap, open GEO/cBioPortal) | code | large | medium | pr | 002, 003 | Compliance reviewer + Maintainer |
-| ewing-biomarker-evidence-cards-provenance-007 | Provenance + no-source-no-claim + allowlist + license-composition enforcement + staleness fail-safe | code | medium | medium | pr | 003, 006 | Maintainer + Compliance reviewer |
-| ewing-biomarker-evidence-cards-normalize-008 | Normalization to HGNC/SO/HGVS/Mondo/NCIt + de-duplication | code | medium | low | pr | 003 | Maintainer |
+| ewing-biomarker-evidence-cards-ingest-006 | Ingestion connectors for allowlisted open sources (PMC-OA, CIViC, Open Targets, ClinVar, DepMap, open GEO/cBioPortal) + span-grounded extraction + VICC-metakb consensus check | code | large | medium | pr | 002, 003 | Compliance reviewer + Maintainer |
+| ewing-biomarker-evidence-cards-provenance-007 | Provenance + no-source-no-claim + allowlist + license-composition (NC + SA + redistribution + OncoKB no-AI-training) enforcement + contradiction-surfacing + staleness fail-safe | code | medium | medium | pr | 003, 006 | Maintainer + Compliance reviewer |
+| ewing-biomarker-evidence-cards-normalize-008 | Normalization to HGNC/SO/HGVS/Mondo/NCIt + GA4GH VRS + structured fusion model + OncoTree + de-duplication | code | medium | low | pr | 003 | Maintainer |
 | ewing-biomarker-evidence-cards-qa-009 | Curation-QA / extraction-faithfulness audit harness | code | small | medium | pr | 007 | Domain reviewer + Maintainer |
 
 **Acceptance criteria — key tasks**
 
 - **ewing-biomarker-evidence-cards-ingest-006** (ingestion connectors)
   - Pulls candidate evidence **only** from allowlisted sources; records full provenance per item;
-    per-article PMC-OA license captured; COSMIC/OncoKB **not ingested** (cite-only references).
-  - LLM-assisted extraction is **assistive**; no assertion is emitted without a resolvable citation;
-    works on fixtures.
+    per-article PMC-OA license captured; COSMIC/OncoKB **not ingested** (cite-only references) and
+    **OncoKB text never used as extraction-model input** (`aiTrainingAllowed:false`).
+  - LLM-assisted extraction is **assistive** and **span-grounded**: every candidate assertion carries a
+    **verbatim supporting quote + PMID/PMCID + location**; no assertion is emitted without a resolvable
+    citation; works on fixtures. A **VICC-metakb cross-KB consensus check** reconciles OncoKB/CIViC
+    slices per marker and records agreement/conflict as provenance.
 
 - **ewing-biomarker-evidence-cards-provenance-007** (enforcement + staleness)
   - **No-source-no-claim**, **allowlist**, and **license-composition** checks block non-compliant
-    cards in CI; `cardLicense` computed as the most-restrictive contributing license.
+    cards in CI; `cardLicense` computed as the most-restrictive contributing license, modeling **NC,
+    SA (ShareAlike), redistribution, and OncoKB no-AI-training** as distinct constraints.
+  - **Contradiction-surfacing** clusters per-marker assertions and proposes `contested`/
+    `refuted-superseded` candidates with `supersededBy[]` — **flagging only; reviewer ratifies** (never
+    auto-published).
   - Each assertion carries `lastVerified` + `validUntil`; at render time a past-`validUntil` assertion
     is **auto-flagged or withheld** until re-verified + re-signed-off (staleness test asserts this).
 
 - **ewing-biomarker-evidence-cards-qa-009** (curation QA)
   - Samples shipped assertions and checks each faithfully represents its cited source (no
     overstatement); reports a faithfulness rate; target **≥ 95%**, with failures routed to re-review.
+  - Adds **evidence-strength (not just fidelity) checks**: a **prospective/cooperative-group
+    corroboration** flag per prognostic/predictive assertion; a **contradiction-coverage** check
+    (known-conflicted markers carry a `contested`/`refuted-superseded` representation — target 100%);
+    and a periodic **second-reviewer concordance** sample on evidence-level/validity-type assignment
+    (guards AMP/ASCO/CAP inter-rater variability).
 
 **M1 Definition of Done:** allowlisted-only ingestion with full provenance working on fixtures;
 no-source-no-claim + allowlist + license-composition + staleness fail-safe implemented and tested;
@@ -150,17 +184,24 @@ normalization + de-duplication in place; curation-QA harness scaffolded.
 **Acceptance criteria — key tasks**
 
 - **ewing-biomarker-evidence-cards-fusion-010** (fusion cards)
-  - Every assertion cited + provenance-backed (no-source-no-claim) and assigned an evidence level
-    (framework + version); diagnostic vs. prognostic associations distinguished with `populationContext`
-    and an `uncertaintyNote`.
-  - Genes/fusions normalized (HGNC/SO/HGVS); restricted-source facts cited, not copied; carries the
-    "research reference — not clinical guidance" frame.
+  - Drafted from a **pre-written evidence-state stub** the reviewer corrects. Every assertion cited +
+    provenance-backed (no-source-no-claim) and assigned an evidence level (framework + version, **by
+    association type**) + `validityDimension`; diagnostic vs. prognostic associations distinguished with
+    `populationContext` (incl. rare-cancer cohort caveats) and an `uncertaintyNote`.
+  - **The fusion-*type* prognostic claim carries `evidenceStatus: refuted-superseded` + `supersededBy[]`**
+    (van Doorninck 2010, COG; Le Deley 2010, Euro-E.W.I.N.G. 99) and a "do not use as prognostic"
+    representation, while the fusion's **diagnostic** use remains valid.
+  - Genes/fusions normalized (HGNC/SO/HGVS + GA4GH VRS + structured fusion model); restricted-source
+    facts cited, not copied; carries the "research reference — not clinical guidance" frame.
   - **Domain-reviewer sign-off recorded** (version-scoped) before ship.
 
 - **ewing-biomarker-evidence-cards-ihc-011** (immunomarker cards)
   - CD99 and NKX2-2 cards state diagnostic use **with sensitivity/specificity caveats and
-    non-specificity of CD99**, each assertion cited + graded; no diagnostic instruction to any
-    individual; domain-reviewer sign-off recorded.
+    non-specificity of CD99**, and **require the round-cell-sarcoma differential** — **CIC-rearranged
+    and BCOR-rearranged** sarcomas (distinct EWSR1-negative entities), DSRCT, and **EWSR1-FISH
+    non-partner-specificity** (positive in DSRCT, clear cell sarcoma, myxoid liposarcoma, etc.);
+    molecular confirmation (EWSR1 FISH/RT-PCR) noted as the gold standard. Each assertion cited +
+    graded; no diagnostic instruction to any individual; domain-reviewer sign-off recorded.
 
 **M2 Definition of Done:** EWSR1-FLI1 + ETS-variant and CD99 + NKX2-2 cards drafted, cited,
 evidence-graded, and **domain-reviewer-signed-off**; citation-coverage + license-composition checks
@@ -180,9 +221,15 @@ green; framing present. *(Gated on a secured domain reviewer.)*
 **Acceptance criteria — key tasks**
 
 - **ewing-biomarker-evidence-cards-prognostic-012** (prognostic cards)
-  - STAG2/TP53/CDKN2A/copy-number cards report prognostic associations **with their evidence level,
-    population context, and explicit uncertainty**; **no individual prognosis or treatment
-    implication**; cited + provenance-backed; domain-reviewer sign-off recorded.
+  - STAG2/TP53/CDKN2A/copy-number cards report prognostic associations **with their evidence level
+    (Simon–Hayes LOE), validity dimension, population context, and explicit uncertainty**; **no
+    individual prognosis or treatment implication**; cited + provenance-backed; domain-reviewer
+    sign-off recorded.
+  - **Accuracy guardrails enforced (from pre-written stubs):** **TP53 and CDKN2A alone are NOT reliable
+    prognostic markers** (Lerman 2015) — the adverse signal is the **concurrent STAG2+TP53 subset**
+    (Tirode 2014); **1q gain is the validated copy-number marker** (COG, JCO 2025) while **chr 8 gain
+    (~50%, the most frequent CNA) has no consistent prognostic value (a passenger)** — the two are not
+    presented as equivalent. Preclinical/cell-line evidence tagged `maturity: preclinical`.
 
 - **ewing-biomarker-evidence-cards-circulating-013** (ctDNA card)
   - Reports the evidence on EWSR1-FLI1 ctDNA/fusion-transcript detection (e.g., as a research/monitoring
@@ -195,7 +242,10 @@ green; framing present. *(Gated on a secured domain reviewer.)*
 
 - **ewing-biomarker-evidence-cards-audit-015** (QA audit)
   - Independent sampled audit confirms **≥ 95%** faithfulness; license + allowlist + provenance
-    coverage = 100%; any failures fixed or cards withheld; results recorded.
+    coverage = 100%; **contradiction coverage = 100%** for known-conflicted markers;
+    prospective/cooperative-group **corroboration** recorded per prognostic/predictive assertion; a
+    **second-reviewer concordance** sample on grading is taken; any failures fixed or cards withheld;
+    results recorded.
 
 **M3 Definition of Done:** prognostic/predictive/circulating cards drafted, cited, graded,
 domain-signed-off; curation-QA audit ≥ 95%; open dataset + accessible site render the research cards
@@ -274,8 +324,8 @@ cadence, reuse-based outcome tracking, and a gated expansion process.
 |---|---|---|---|---|---|---|
 | ewing-biomarker-evidence-cards-i18n-019 | Multilingual patient-facing cards | writing | large | high | translation | Defer to / coordinate with `ewing-info-translations` (HIGH); per-language oncologist+advocate review |
 | ewing-biomarker-evidence-cards-immuno-020 | Immunotherapy surface-antigen target cards | writing | medium | medium | document | Coordinate with `ewing-immunotherapy-target-catalog` to avoid duplication |
-| ewing-biomarker-evidence-cards-api-021 | Read-only query API over the card dataset | code | medium | low | pr | Only after M5; static, no PII, open data |
-| ewing-biomarker-evidence-cards-kg-022 | Link cards to `ewsr1-fli1-knowledge-graph` entities | code | medium | medium | pr | Interop via normalized HGNC/SO/Mondo refs |
+| ewing-biomarker-evidence-cards-api-021 | Read-only query API + MCP server over the card dataset | code | medium | low | pr | Only after M5; static, no PII, open data; MCP exposes graded/cited/provenance-stamped cards for safe agent consumption |
+| ewing-biomarker-evidence-cards-kg-022 | Link cards to `ewsr1-fli1-knowledge-graph` entities (cards as evidence-bearing edges) | code | medium | medium | pr | Interop via normalized HGNC/SO/Mondo/VRS refs |
 | ewing-biomarker-evidence-cards-feedback-023 | Reviewer/advocate feedback + correction intake workflow | code | small | medium | pr | Corrections trigger re-review + re-sign-off |
 
 **Acceptance criteria — backlog rows.** The backlog rows above carry their checkable acceptance
@@ -355,13 +405,14 @@ Complete, schema-valid Task JSON for the first M0 task (`ewing-biomarker-evidenc
   "deliverable": "document",
   "tokenEstimate": "medium",
   "status": "open",
-  "context": "Ewing-Biomarker-Evidence-Cards builds an open, source-cited library of biomarker evidence cards for Ewing Sarcoma - a research-evidence reference, with an optional separately-gated plain-language layer for families that is education only, never medical advice. Because this is a cancer-data project that families and advocates may read, the binding cancer guardrails are the first build item, not an afterthought: ONLY open-access / aggregate / de-identified data may be used (controlled-access resources - dbGaP, EGA, individual-level biobanks - and ANY identifiable patient data are out of scope), and every source's license must be verified before reuse (COSMIC and OncoKB are non-commercial / redistribution-restricted and may be cited but never redistributed; CIViC is CC0; DepMap CC-BY-4.0; ClinVar public domain; PMC-OA per-article). Every assertion must carry a citation and provenance. No partner, reviewer, or steward is yet secured.",
+  "context": "Ewing-Biomarker-Evidence-Cards builds an open, source-cited library of biomarker evidence cards for Ewing Sarcoma - a research-evidence reference, with an optional separately-gated plain-language layer for families that is education only, never medical advice. Because this is a cancer-data project that families and advocates may read, the binding cancer guardrails are the first build item, not an afterthought: ONLY open-access / aggregate / de-identified data may be used (controlled-access resources - dbGaP, EGA, individual-level biobanks - and ANY identifiable patient data are out of scope), and every source's license must be verified before reuse (COSMIC and OncoKB are non-commercial / redistribution-restricted and may be cited but never redistributed - and OncoKB additionally forbids AI/ML training, so its text is never fed to the extraction model; CC-BY-SA/ShareAlike sources are modeled as a distinct license contaminant; CIViC is CC0; DepMap CC-BY-4.0; ClinVar public domain; PMC-OA per-article). Every assertion must carry a citation and provenance, and is graded on two axes (evidence-strength by association type plus an analytic/clinical-validity/clinical-utility validity dimension) with refuted markers made first-class via evidenceStatus/supersededBy. No partner, reviewer, or steward is yet secured.",
   "objective": "Write the authoritative data/licensing & compliance policy specification that all later sourcing, schema, and content work must implement and be tested against: the open/aggregate/de-identified-only rule and the controlled-access/identifiable-data out-of-scope boundary; per-source license verification and the redistribution-allowed (cite-only) rule for restricted sources; the no-source-no-claim requirement and per-assertion provenance fields; the license-composition rule that sets each card's effective license; and the framing strings ('research reference - not clinical guidance' for research cards, 'research information, not medical advice' for the patient layer) plus the review gates (domain reviewer for research cards; oncologist + patient-advocate for patient cards).",
   "acceptanceCriteria": [
     "States the binding guardrails: only open-access / aggregate / de-identified sources; controlled-access (dbGaP, EGA, individual-level biobanks) and any identifiable patient data are out of scope; no re-identification or individual-level data",
-    "Defines per-source license verification before reuse and the redistributionAllowed cite-only rule for restricted sources (e.g., COSMIC, OncoKB cited and linked, never redistributed)",
-    "Defines the no-source-no-claim requirement and the per-assertion provenance fields (source, accession/PMID/PMCID/DOI, retrievalDate, license, redistributionAllowed)",
-    "Defines the license-composition rule: a card's effective cardLicense is the most restrictive of its contributing sources, and restricted-source content never enters a card body",
+    "Defines per-source license verification before reuse and the redistributionAllowed cite-only rule for restricted sources (e.g., COSMIC, OncoKB cited and linked, never redistributed); records OncoKB's no-AI/ML-training clause (aiTrainingAllowed:false - never fed to the extraction model) and models CC-BY-SA/ShareAlike as a distinct license contaminant alongside NC",
+    "Defines the no-source-no-claim requirement and the per-assertion provenance fields (source, accession/PMID/PMCID/DOI, retrievalDate, license, redistributionAllowed, aiTrainingAllowed, shareAlike), with span-grounded verbatim-quote extraction",
+    "Defines the license-composition rule: a card's effective cardLicense is the most restrictive of its contributing sources (modeling NC, SA, redistribution, and no-AI-training), and restricted-source content never enters a card body",
+    "Specifies the two-axis grading model (evidence-strength by association type - Simon-Hayes LOE for prognostic, AMP/ASCO/CAP + ESCAT for predictive, REMARK as appraisal - plus an ACCE validityDimension axis) and the evidenceStatus/supersededBy refuted-marker policy, so no prognostic/diagnostic marker is graded on an actionability scale",
     "Mandates the framing strings and review gates: 'research reference - not clinical guidance' (research) and 'research information, not medical advice' (patient layer); domain-reviewer sign-off for research cards; oncologist + patient-advocate dual sign-off for patient-facing cards",
     "Reviewed and signed off by the compliance/licensing reviewer (recorded)"
   ],
