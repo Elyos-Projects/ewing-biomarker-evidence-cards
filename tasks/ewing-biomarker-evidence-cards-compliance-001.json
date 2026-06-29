@@ -1,0 +1,35 @@
+{
+  "id": "ewing-biomarker-evidence-cards-compliance-001",
+  "title": "Data/licensing & compliance policy spec (open/aggregate/de-identified only; cite-only restricted sources)",
+  "project": "ewing-biomarker-evidence-cards",
+  "type": "design-spec",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["cancer", "oncology", "ewing-sarcoma", "biomarkers", "open-data", "compliance"],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "Ewing-Biomarker-Evidence-Cards builds an open, source-cited library of biomarker evidence cards for Ewing Sarcoma - a research-evidence reference, with an optional separately-gated plain-language layer for families that is education only, never medical advice. Because this is a cancer-data project that families and advocates may read, the binding cancer guardrails are the first build item, not an afterthought: ONLY open-access / aggregate / de-identified data may be used (controlled-access resources - dbGaP, EGA, individual-level biobanks - and ANY identifiable patient data are out of scope), and every source's license must be verified before reuse (COSMIC and OncoKB are non-commercial / redistribution-restricted and may be cited but never redistributed; CIViC is CC0; DepMap CC-BY-4.0; ClinVar public domain; PMC-OA per-article). Every assertion must carry a citation and provenance. No partner, reviewer, or steward is yet secured.",
+  "objective": "Write the authoritative data/licensing & compliance policy specification that all later sourcing, schema, and content work must implement and be tested against: the open/aggregate/de-identified-only rule and the controlled-access/identifiable-data out-of-scope boundary; per-source license verification and the redistribution-allowed (cite-only) rule for restricted sources; the no-source-no-claim requirement and per-assertion provenance fields; the license-composition rule that sets each card's effective license; and the framing strings ('research reference - not clinical guidance' for research cards, 'research information, not medical advice' for the patient layer) plus the review gates (domain reviewer for research cards; oncologist + patient-advocate for patient cards).",
+  "acceptanceCriteria": [
+    "States the binding guardrails: only open-access / aggregate / de-identified sources; controlled-access (dbGaP, EGA, individual-level biobanks) and any identifiable patient data are out of scope; no re-identification or individual-level data",
+    "Defines per-source license verification before reuse and the redistributionAllowed cite-only rule for restricted sources (e.g., COSMIC, OncoKB cited and linked, never redistributed)",
+    "Defines the no-source-no-claim requirement and the per-assertion provenance fields (source, accession/PMID/PMCID/DOI, retrievalDate, license, redistributionAllowed)",
+    "Defines the license-composition rule: a card's effective cardLicense is the most restrictive of its contributing sources, and restricted-source content never enters a card body",
+    "Mandates the framing strings and review gates: 'research reference - not clinical guidance' (research) and 'research information, not medical advice' (patient layer); domain-reviewer sign-off for research cards; oncologist + patient-advocate dual sign-off for patient-facing cards",
+    "Reviewed and signed off by the compliance/licensing reviewer (recorded)"
+  ],
+  "resources": [
+    "planning/projects/ewing-biomarker-evidence-cards/PLAN.md",
+    "planning/ROADMAP.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "A reviewed compliance policy-specification document defining the open/aggregate/de-identified-only data rule, the controlled-access/identifiable-data out-of-scope boundary, per-source license verification + cite-only rule, the no-source-no-claim provenance requirement, the license-composition rule, and the framing + review gates - the contract that ewing-biomarker-evidence-cards-sources-002 (allowlist/register), -schema-003 (card schema), and -provenance-007 (enforcement) implement and verify.",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}
